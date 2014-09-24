@@ -1,0 +1,3 @@
+[! local dc_id = media_id .. "_depth_control" !]
+<port id="[!=dc_id!]_port" component="[!=dc_id!]"/>
+

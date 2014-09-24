@@ -1,0 +1,7 @@
+ncls3d is a lua script to convert an NCL application to its stereoscopic
+counterpart. The final application can be executed in stereoscopic 3D
+displays.
+
+Credits:
+  - inspect.lua
+  - slaxdom

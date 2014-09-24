@@ -1,0 +1,15 @@
+<media id="[!=media_id!]_depth_control" src="media/depth_control.lua">
+  <property name="width" value="100%"/>
+  <property name="height" value="100%"/>
+  
+  <!-- property name="user_scale_disparity" value="1.0"/ -->
+  <property name="orig_depth" value=""/>
+  <property name="orig_left" value=""/>
+  <property name="orig_width" value=""/>
+  <property name="orig_bounds" value=""/>
+  
+  <property name="final_bounds_left" value=""/>
+  <property name="final_bounds_right" value=""/>
+  <property name="update_user_scale_disparity_by" value="0.0"/>
+</media>
+

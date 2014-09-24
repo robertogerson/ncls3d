@@ -1,0 +1,8 @@
+<link id="[!=id_left_media!]_update_bounds_right" xconnector="onEndAttributionSet_var">
+  <bind role="onEndAttribution" component="[!=id_depth_control!]" interface="final_bounds_right"/>
+  <bind role="get" component="[!=id_depth_control!]" interface="final_bounds_right"/>
+  <bind role="set" component="[!=id_right_media!]" interface="bounds">
+    <bindParam name="var" value="$get"/>
+  </bind>
+</link>
+
