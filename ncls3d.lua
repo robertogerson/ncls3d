@@ -1,7 +1,10 @@
-local inspect = require('inspect')
-local util    = require('util')
-local slaxml = require ('slaxdom_ext')
-local templates = require('templates_xml')
+-- Add deps path to the package.path. Thus, the dependencies will be found
+package.path = package.path .. ";./deps/?.lua;./deps/?/?.lua;./deps/?/src/?.lua"
+
+local inspect   = require "inspect"
+local util      = require "util"
+local slaxml    = require "slaxdom_ext"
+local templates = require "templates_xml"
 
 -- Some global definitions
 local STR_USAGE = "ncls3d.lua --input=$XML_IN_PATH --output=$XML_OUT_PATH"
@@ -415,25 +418,23 @@ function generate_stereo ( doc, xml_el )
   end
 end
 
+
+local argparse = require "argparse"
+local parser = argparse()
+   :description "ncls3d is a lua script to convert an NCL document to its \
+                  stereoscopic version"
+parser:argument "input"
+   :description "Input file."
+parser:option "-o" "--output"
+   :description "Output file."
+
 -- Main
 function main()
   -- Handle arguments
-  local flags = parse_flags(unpack(arg))
-  
-  print (inspect(flags))
-  
-  print ("Running with parameters:")
-  print(inspect(flags))
-  if flags["input"] == nil then
-    print ("Missing parameters.\n You should you: ".. STR_USAGE)
-    return
-  elseif arg["help"] then
-    print (STR_USAGE)
-    return
-  end
-  
+  local args = parser:parse()
+
   -- Open file
-  local f = assert(io.open(flags["input"], "r"))
+  local f = assert(io.open(args["input"], "r"))
   local xml_content = f:read("*all")
   f:close()
 
@@ -445,15 +446,14 @@ function main()
   
   generate_stereo (doc, doc)
   -- print (inspect(doc))
-  if flags["output"] then
-    print ("Ouput writed to "..flags["output"])
-    f = assert(io.open(flags["output"], "w"))
+  if args["output"] then
+    print ("Ouput writed to " .. args["output"])
+    f = assert(io.open(args["output"], "w"))
     f:write(slaxml:serialize(doc, -1))
     f:close()
   else
-    print ("You didn't provide a output file. Output to stdout.")
+    print ("You didn't provide an output file. The output is:")
     print (slaxml:serialize(doc, -1))
-
   end
 end
 

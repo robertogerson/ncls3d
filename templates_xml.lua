@@ -1,7 +1,7 @@
-local inspect = require('inspect')
-local util    = require('util')
-local slaxml  = require ('slaxdom')
-local luatpl  = require('luatpl/luatpl')
+local inspect = require "inspect"
+local util    = require "util"
+local slaxml  = require "slaxdom_ext"
+local luatpl  = require "luatpl/luatpl"
 
 function get_file_content(path)
   local f = assert(io.open(path, "r"))

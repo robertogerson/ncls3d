@@ -45,26 +45,3 @@ function double_from_percent (percent)
   return v / 100.0;
 end
 
---- Extract flags from an arguments list.
--- Given string arguments, extract flag arguments into a flags set.
--- For example, given "foo", "--tux=beep", "--bla", "bar", "--baz",
--- it would return the following:
--- {["bla"] = true, ["tux"] = "beep", ["baz"] = true}, "foo", "bar".
--- Snippet code from: http://snippets.luacode.org/snippets/Parsing_Command-line_arguments_9
-function parse_flags(...)
-  local args = {...}
-  local flags = {}
-  for i = #args, 1, -1 do
-    local flag = args[i]:match("^%-%-(.*)")
-    if flag then
-      local var,val = flag:match("([a-z_%-]*)=(.*)")
-      if val then
-        flags[var] = val
-      else
-        flags[flag] = true
-      end
-      table.remove(args, i)
-    end
-  end
-  return flags, unpack(args)
-end
