@@ -9,8 +9,14 @@ The following image shows an overview of the process that ncls3d implements:
 ![ncls3d Overview](http://www.telemidia.puc-rio.br/~robertogerson/ncls3d_overview.png)
 
 ## Usage
-There are two main ways of using ncls3d: off-line or embedded in an NCL
-application.
+You should get the ncls3d dependencies before start using it. The easiest way
+to do it is running:
+
+```bash
+lua get_deps.lua
+```
+
+The dependencies will be downloaded and will be available at `deps` directory.
 
 ### Off-line
 The off-line option allows you to generate the stereoscopic application at the
