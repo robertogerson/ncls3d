@@ -1,5 +1,4 @@
 #ncls3d
-======
 *ncls3d* is a lua script to convert an NCL application to its stereoscopic
 counterpar  t. The final application can be executed in stereoscopic 3D
 displays. Besides allowing an off-line conversion, it is also possible to use
