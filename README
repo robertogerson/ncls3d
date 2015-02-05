@@ -1,17 +1,59 @@
-ncls3d
+#ncls3d
 ======
-ncls3d is a lua script to convert an NCL application to its stereoscopic
-counterpart. The final application can be executed in stereoscopic 3D
-displays.
+*ncls3d* is a lua script to convert an NCL application to its stereoscopic
+counterpar  t. The final application can be executed in stereoscopic 3D
+displays. Besides allowing an off-line conversion, it is also possible to use
+*ncls3d* as an NCLua media object, allowing the conversion on the client-side.
 
-Usage
-=====
+## Usage
+There are two main ways of using ncls3d: off-line or embedded in an NCL
+application.
 
-Credits
-=======
-ncls3d is developed by:
+### Off-line
+The off-line option allows you to generate the stereoscopic application at the
+server-side. In order to do so, you should run ncls3d.lua from the command-line
+with something like:
+
+```bash
+lua ncls3d.lua [-o <output>] <input>
+```
+
+This will take <input> as an NCL input file and generates a new NCL application
+at the <output> file. A complete list of ncls3d.lua parameter is accessible
+through:
+
+```bash
+lua ncls3d.lua -h
+```
+
+### NCLua
+We also provide an ncls3d.nclua file that allows you to embedded the ncls3d
+program in an NCLua application. In such a case you should add an NCLua 
+`<media>` element in the
+
+```xml
+...
+<media id="tos3d" src="ncls3d.nclua">
+  <property name="url" value="original-2d_ncl_app.ncl"/>
+</media>
+...
+```
+When the above `tos3d` media object receives a start action (triggered by the
+wrapper application), the conversion process generates the stereoscopic
+application on the client-side and adds it to the wrapper NCL application,
+presenting it to the viewer.
+
+## Credits
+ncls3d is mainly developed by:
   * Roberto Azevedo <robertogerson@telemidia.puc-rio.br>
 
-License
-=======
+----
+Copyright (c) 2015 Roberto Azevedo
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant
+Sections, with no Front-Cover Texts, and with no Back-Cover Texts. A copy
+of the license is included in the ``GNU Free Documentation License'' file as
+part of this distribution.
 
