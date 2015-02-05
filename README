@@ -4,6 +4,10 @@ counterpar  t. The final application can be executed in stereoscopic 3D
 displays. Besides allowing an off-line conversion, it is also possible to use
 *ncls3d* as an NCLua media object, allowing the conversion on the client-side.
 
+The following image shows an overview of the process that ncls3d implements:
+
+![ncls3d Overview](http://www.telemidia.puc-rio.br/~robertogerson/ncls3d_overview.png)
+
 ## Usage
 There are two main ways of using ncls3d: off-line or embedded in an NCL
 application.
