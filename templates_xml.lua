@@ -40,10 +40,10 @@ end
 
 local TEMPLATES =
 {
-  depth_control_media_start_content = get_file_content("xml/depth_control_media_start.xml"),
-  depth_control_content = get_file_content("xml/depth_control_media.xml"),
-  link_update_left_content = get_file_content("xml/link_update_left.xml"),
-  link_update_right_content = get_file_content("xml/link_update_right.xml"),
+  depth_control_media_start_content = get_file_content("tpl/depth_control_media_start.xml"),
+  depth_control_content = get_file_content("tpl/depth_control_media.xml"),
+  link_update_left_content = get_file_content("tpl/link_update_left.xml"),
+  link_update_right_content = get_file_content("tpl/link_update_right.xml"),
 }  
 
 function TEMPLATES:get_depth_control_media_start (str_id)
