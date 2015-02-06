@@ -70,6 +70,30 @@ function SLAXML:find_by_attribute(xml_el, attr, value)
   return found_elements;
 end
 
+-- Get XML element by attribute.
+-- @param xml_el
+-- @param name
+-- @param value
+function SLAXML:get_elem_by_attr(root, attr, value)
+  if root.attr then
+     local attr_value = SLAXML:get_attr(root, attr)
+    if attr_value == value then
+      return root
+    end
+  end
+  
+  if root.kids then
+    for k, child in pairs(root.kids) do
+      local x = SLAXML:get_elem_by_attr(child, attr, value)
+      if x then
+        return x
+      end
+    end
+  end
+  return nil
+end
+
+
 -- Search all the elements with a tagname
 -- @xml_el The XML element root where we want to start the search.
 -- @tagname The tagname to be found.

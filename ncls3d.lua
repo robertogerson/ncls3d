@@ -64,30 +64,7 @@ function add_prefix_to_attr(xml_el, attr_names, prefix, recursive)
   end
 end
 
--- Get XML element by attribute.
--- @param xml_el
--- @param name
--- @param value
-function slaxml:get_elem_by_attr(root, attr, value)
-  if root.attr then
-     local attr_value = slaxml:get_attr(root, attr)
-    if attr_value == value then
-      return root
-    end
-  end
-  
-  if root.kids then
-    for k, child in pairs(root.kids) do
-      local x = slaxml:get_elem_by_attr(child, attr, value)
-      if x then
-        return x
-      end
-    end
-  end
-  return nil
-end
-
--- Update media properties of both, left and right media objects
+-- Update media properties for both, left and right media objects
 -- For now, it handle only percentage values
 -- @param left_el
 -- @param right_el
@@ -360,7 +337,7 @@ end
 
 -- Main function to generate stereo application from the original NCL document
 -- @param doc The root document table.
--- @param xml_el The current xml element.
+-- @param xml_el The current xml element being parsed.
 function generate_stereo ( doc, xml_el )
   -- print ("Parsing:", xml_el.type, xml_el.name)
   local to_add = {}
@@ -421,8 +398,8 @@ end
 
 local argparse = require "argparse"
 local parser = argparse()
-   :description "ncls3d is a lua script to convert an NCL document to its \
-                  stereoscopic version"
+   :description ("ncls3d is a lua script to convert an NCL document to its "
+                .. "stereoscopic version.")
 parser:argument "input"
    :description "Input file."
 parser:option "-o" "--output"

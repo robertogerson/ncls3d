@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ncl id="myNCLDocID" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
 	<head>
 		<connectorBase id="connBaseId">
