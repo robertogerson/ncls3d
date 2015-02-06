@@ -26,6 +26,7 @@ local slaxml    = require "slaxdom_ext"
 local templates = require "templates_xml"
 
 -- Some global definitions
+local VERSION = "1.0"
 local STR_USAGE = "ncls3d.lua --input=$XML_IN_PATH --output=$XML_OUT_PATH"
 local USER_CUSTOM_DEPTH = 1.0
 local MAX_NEG_DISPARITY = 0.02
@@ -445,11 +446,11 @@ function main()
   if args["output"] then
     print ("Ouput writed to " .. args["output"])
     f = assert(io.open(args["output"], "w"))
-    f:write(slaxml:serialize(doc, -1))
+    f:write(slaxml:serialize(doc, -1, "  "))
     f:close()
   else
     print ("You didn't provide an output file. The output is:")
-    print (slaxml:serialize(doc, -1))
+    print (slaxml:serialize(doc, -1, " "))
   end
 end
 

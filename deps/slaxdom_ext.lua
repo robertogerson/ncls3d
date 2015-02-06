@@ -123,9 +123,10 @@ end
 -- Serialize an XML document represented as a SLAXML dom table
 -- @param xml_el The SLAXML dom table.
 -- @param ntabs The number of tabs to format the current element. 
-function SLAXML:serialize (xml_el, ntabs)
+function SLAXML:serialize (xml_el, ntabs, TAB)
   ntabs = ntabs or 0 -- the default value for ntabs is zero
-  
+  TAB   = TAB or '\t' -- default TAB character
+
   local str_el = ""    
   if xml_el.type == "pi" then
     str_el = "<?" .. xml_el.name .. " " .. xml_el.value .."?>\n"
@@ -133,7 +134,7 @@ function SLAXML:serialize (xml_el, ntabs)
   else 
     if xml_el.type == "element" then
       for i = 0,ntabs do
-        str_el = str_el .. "\t"
+        str_el = str_el .. TAB
       end
       str_el = str_el .. "<" .. xml_el.name
       if xml_el.attr then
@@ -158,12 +159,12 @@ function SLAXML:serialize (xml_el, ntabs)
       end
       
       for k, xml_kid in pairs (xml_el.kids) do
-        str_el = str_el .. SLAXML:serialize(xml_kid, new_ntabs)
+        str_el = str_el .. SLAXML:serialize(xml_kid, new_ntabs, TAB)
       end
       
       if xml_el.type == "element" and #xml_el.kids then
         for i = 0,ntabs do
-          str_el = str_el .. "\t"
+          str_el = str_el .. TAB
         end
         str_el = str_el .. "</" .. xml_el.name .. ">\n"
       end
