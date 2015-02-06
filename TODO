@@ -1,11 +1,15 @@
+# TODO
 This is the TODO list for ncls3d.
 
-* We only should clone bind if the <media> that is pointed by the bind was
-  cloned.
-* Add bounds property to media objects!
-* We only need to add depth_control_template if there is any change
-  in the spatial media properties (including depth property).
-* Add onEndAttributionSet_var connector to the document.
-* Handle animations.
-* Adaptability (allow to choose stereo or non-stereo execution mode).
+## Bugs
+  * We should clone a <bind> only if the <media> pointed by this <bind> was
+    cloned.
+  * Add 'bounds' property to media objects!
+  * We only need to add depth_control_template if there is any change
+    in the spatial media properties (including depth property).
+  * Add onEndAttributionSet_var connector to the document.
+  * Handle animations.
+  * Adaptability (allow to choose stereo or non-stereo execution mode).
 
+## New features
+  * Support for top/down output.
