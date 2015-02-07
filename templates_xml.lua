@@ -32,10 +32,10 @@ function get_root_element (xml_content)
   -- Parse XML and print results
   local doc = slaxml:dom(xml_content,{ simple=true })
   if (doc) then
-    print ("-- Parsing success.\n")
+    return doc.kids[1]
+  else
+    return nil
   end
-  
-  return doc.kids[1]
 end
 
 local TEMPLATES =
@@ -51,7 +51,6 @@ function TEMPLATES:get_depth_control_media_start (str_id)
   -- media_id is expected by the depth_control_media.xml template
   local template_input = "local media_id = \""..str_id.."\"\n"
   local solved = luatpl:solve(TEMPLATES.depth_control_media_start_content, template_input)
-  print (solved)
   local root = get_root_element (solved)
 
   return table.deepcopy(root)
