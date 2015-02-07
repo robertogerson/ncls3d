@@ -24,7 +24,8 @@ local _deps = {
   ["slaxml"]   = "https://github.com/Phrogz/SLAXML.git",
   ["luatpl"]   = "https://github.com/robertogerson/luatpl.git",
   ["argparse"] = "https://github.com/mpeterv/argparse.git",
-  ["30log"]    = "https://github.com/Yonaba/30log.git"
+  ["30log"]    = "https://github.com/Yonaba/30log.git",
+  ["ansicolors"] = "https://github.com/kikito/ansicolors.lua.git"
 }
 
 for k,v in pairs(_deps) do
