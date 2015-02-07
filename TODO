@@ -9,7 +9,8 @@ This is the TODO list for ncls3d.
     in the spatial media properties (including depth property).
   * Add onEndAttributionSet_var connector to the document.
   * Handle animations.
-  * Adaptability (allow to choose stereo or non-stereo execution mode).
+  * Dynamic adaptability (allow to choose stereo or non-stereo execution mode).
 
 ## New features
   * Support for top/down output.
+

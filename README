@@ -29,7 +29,7 @@ lua ncls3d.lua [-o <output>] <input>
 ```
 
 This will take <input> as an NCL input file and generates a new NCL application
-at the <output> file. A complete list of ncls3d.lua parameter is accessible
+at the <output> file. A complete list of ncls3d.lua parameters is accessible
 through:
 
 ```bash
