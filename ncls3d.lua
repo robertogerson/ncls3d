@@ -159,6 +159,7 @@ function update_media_properties (left_el, right_el)
         elseif attr_name_tbl.value == "left" then
           -- update left property
           attr_value_tbl.value = tostring((double_from_percent(attr_value_tbl.value)/2 + 0.5 + adapted_disparity) * 100 ).."%" -- need to add disparity
+
         elseif attr_name_tbl.value == "right" then
           -- update right property
           attr_value_tbl.value = tostring((double_from_percent(attr_value_tbl.value)/2 - adapted_disparity) * 100 ).."%" -- need to add disparity
@@ -422,6 +423,8 @@ local parser = argparse()
                 .. "stereoscopic version.")
 parser:argument "input"
    :description "Input file."
+parser:flag "-d" "--usedepth"
+   :description "Use NCLua depth media control."
 parser:option "-o" "--output"
    :description "Output file."
 
@@ -440,7 +443,9 @@ function main()
   if (doc) then
     print ("-- Parsing success.\n")
   end
-  
+
+  USE_NCLUA_DEPTH_CONTROL = args["usedepth"]
+
   generate_stereo (doc, doc)
   -- print (inspect(doc))
   if args["output"] then
