@@ -30,7 +30,7 @@ local VERSION = "1.0"
 local STR_USAGE = "ncls3d.lua --input=$XML_IN_PATH --output=$XML_OUT_PATH"
 local USER_CUSTOM_DEPTH = 1.0
 local MAX_NEG_DISPARITY = 0.02
-local MAX_POS_DISPARITY = 0.02
+local MAX_POS_DISPARITY = 0.01
 local SUFFIX = "_right"
 local USE_MIRROR = true
 local USE_NCLUA_DEPTH_CONTROL = false
@@ -45,7 +45,7 @@ function add_suffix_to_attr(xml_el, attr_names, suffix, recursive)
   if xml_el.attr then
     for x, attr in pairs(xml_el.attr) do
       if attr_names[attr.name] ~= nil then
-	if attr.value == nil then
+      	if attr.value == nil then
           attr.value = ""
         end
         attr.value = attr.value .. suffix
@@ -94,25 +94,16 @@ function update_media_properties (left_el, right_el)
   for k, child in pairs(left_el.kids) do
     if (child.name == "property" ) then
       -- search for tables related to "name" and "value" attributes
-      for a, attr_tbl in pairs (child.attr) do
-        if (attr_tbl.name == "name") then
-          attr_name_tbl = attr_tbl
-        else
-          if (attr_tbl.name == "value") then
-            attr_value_tbl = attr_tbl
-          end
-        end
-      end
-      
-      -- if there is a left property we must update it
-      if (attr_name_tbl and attr_value_tbl) then
-        if (attr_name_tbl.value == "width" or attr_name_tbl.value == "left") then
-          attr_value_tbl.value = 
-                      tostring(double_from_percent(attr_value_tbl.value) * 100 / 2).."%" 
-        elseif (attr_name_tbl.value == "right") then
-          attr_value_tbl.value = 
-                      tostring(double_from_percent(attr_value_tbl.value) * 100 / 2 + 50).."%" 
-        end
+      local prop_name = slaxml:get_attr(child, "name")
+      local prop_value = slaxml:get_attr(child, "value")
+
+      -- if there is a width, left or right property we must update it
+      if (prop_name == "width") or (prop_name == "left") then
+        slaxml:set_attr( child, "value",
+          tostring(double_from_percent(prop_value) * 100 / 2).."%")
+      elseif (prop_name == "right") then
+        slaxml:set_attr( child, "value",
+          tostring(double_from_percent(prop_value) * 100 / 2 + 50).."%")
       end
     end
   end
@@ -133,17 +124,9 @@ function update_media_properties (left_el, right_el)
   -- update cloned (right) element
   for k, child in pairs(right_el.kids) do
     if (child.name == "property" ) then
-      -- search for tables related to "name" and "value" attributes
-      for a, attr_tbl in pairs (child.attr) do
-        if (attr_tbl.name == "name") then
-          attr_name_tbl = attr_tbl
-        else
-          if (attr_tbl.name == "value") then
-            attr_value_tbl = attr_tbl
-          end
-        end
-      end
-      
+      local prop_name = slaxml:get_attr(child, "name")
+      local prop_value = slaxml:get_attr(child, "value")
+
       -- Adapt disparity based on MIN_DISPARITY or MAX_DISPARITY
       local adapted_disparity = 0;
       if (disparity >= 0) then
@@ -153,25 +136,69 @@ function update_media_properties (left_el, right_el)
       end
       
       -- if there is a left, right, or width properties we must update it
-      if (attr_name_tbl and attr_value_tbl) then
-        if (attr_name_tbl.value == "width") then
-          attr_value_tbl.value = tostring(double_from_percent(attr_value_tbl.value) * 100 / 2).."%" 
-        elseif attr_name_tbl.value == "left" then
-          -- update left property
-          attr_value_tbl.value = tostring((double_from_percent(attr_value_tbl.value)/2 + 0.5 + adapted_disparity) * 100 ).."%" -- need to add disparity
+      if (prop_name == "width") then
+          slaxml:set_attr( 
+            child,
+            "value",
+            tostring(double_from_percent(prop_value) * 100/2).."%")
+      elseif prop_name == "left" then
+          update_left = true
+          slaxml:set_attr(
+            child,
+            "value",
+            tostring((double_from_percent(prop_value)/2 + 0.5 +
+                      adapted_disparity) * 100 ).."%") -- need to add disparity
 
-        elseif attr_name_tbl.value == "right" then
-          -- update right property
-          attr_value_tbl.value = tostring((double_from_percent(attr_value_tbl.value)/2 - adapted_disparity) * 100 ).."%" -- need to add disparity
-        end
+      elseif prop_name == "right" then
+          slaxml:set_attr(
+            child,
+            "value",
+            tostring((double_from_percent(prop_value)/2 -
+                      adapted_disparity) * 100 ).."%") -- need to add disparity
       end
     end
   end
 end
 
+function add_property_if_it_doesnt_exist(media_el)
+  local add_property_tbl = { ["left"] = "0%",
+                             ["width"] = "100%" }
+
+  for k, v in pairs(add_property_tbl) do 
+    local found = false; 
+    for _, child in pairs(media_el.kids) do
+      if child.type == "element" then
+        local prop_name = slaxml:get_attr(child, "name")
+
+        if prop_name == k then
+          found  = true
+          break
+        end
+      end
+    end
+
+    -- in case we do not found the <property>, we should add it
+    if not found then
+      local prop_el = {}
+      prop_el.attr = {}
+      prop_el.name = "property"
+      prop_el.type = "element"
+      slaxml:set_attr(prop_el, "name", k)
+      slaxml:set_attr(prop_el, "value", v)
+
+      -- add the property
+      table.insert(media_el.kids, prop_el)
+    end
+  end
+
+  return media_el
+end
+
 -- Clone a <media> element, updating its src attribute and its spatial properties
 function clone_ncl_media ( media_el )
   assert(media_el.name == "media")
+
+  add_property_if_it_doesnt_exist(media_el)
   
   local media_right = table.deepcopy(media_el) -- clone the media element
   local mirror_id = slaxml:get_attr(media_right, "id")
@@ -179,11 +206,7 @@ function clone_ncl_media ( media_el )
 		  
   -- update source attribute
   if USE_MIRROR then
-    for k, v in pairs(media_right.attr) do
-      if(v.name == "src") then
-        v.value = "ncl-mirror://" .. mirror_id
-      end
-    end
+    slaxml:set_attr(media_right, "src", "ncl-mirror://" .. mirror_id)
   end
   
   -- update properties in the left and right element
@@ -299,7 +322,10 @@ end
 function clone_ncl_descriptor(descriptor_el)
   assert(descriptor_el.name == "descriptor")
   local descriptor_right = table.deepcopy(descriptor_el)
-  add_suffix_to_attr(descriptor_right, {id = true, region = true}, SUFFIX, false)
+  add_suffix_to_attr( descriptor_right, 
+                      {id = true, region = true},
+                      SUFFIX,
+                      false)
 
   return descriptor_right
 end
@@ -416,7 +442,6 @@ function generate_stereo ( doc, xml_el )
   end
 end
 
-
 local argparse = require "argparse"
 local parser = argparse()
    :description ("ncls3d is a lua script to convert an NCL document to its "
@@ -425,6 +450,8 @@ parser:argument "input"
    :description "Input file."
 parser:flag "-d" "--usedepth"
    :description "Use NCLua depth media control."
+parser:flag "-m" "--usemirror"
+   :description "Use ncl-mirror:// schema to cloned media objects."
 parser:option "-o" "--output"
    :description "Output file."
 
@@ -444,7 +471,9 @@ function main()
     print ("-- Parsing success.\n")
   end
 
+  -- Update global parameters
   USE_NCLUA_DEPTH_CONTROL = args["usedepth"]
+  USE_MIRROR = args["usemirror"]
 
   generate_stereo (doc, doc)
   -- print (inspect(doc))

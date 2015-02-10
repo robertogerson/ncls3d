@@ -35,7 +35,9 @@ function SLAXML:set_attr(xml_el, name, value)
 
   -- if there is no the attribute, then, add it
   if not updated then
-    table.insert(xml_el.attr, {["name"]=name, ["value"] = value})
+    table.insert(xml_el.attr, {["name"]=name,
+                               ["value"] = value,
+                               ["type"] = "attribute"})
   end
 end
 
