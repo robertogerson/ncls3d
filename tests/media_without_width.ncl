@@ -6,7 +6,7 @@
       <property name="depth" value="1.0"/>
       <property name="left" value="5%"/>
       <property name="top" value="10%"/>
-      <property name="width" value="25%"/>
+      <property name="width" value="50%"/>
       <property name="height" value="50%"/>
     </media>
     <port id="p1_right" component="m1_right"/>
@@ -14,7 +14,7 @@
       <property name="depth" value="1.0"/>
       <property name="left" value="54%"/>
       <property name="top" value="10%"/>
-      <property name="width" value="25%"/>
+      <property name="width" value="50%"/>
       <property name="height" value="50%"/>
     </media>
     <port id="m1_depth_control_port" component="m1_depth_control"/>

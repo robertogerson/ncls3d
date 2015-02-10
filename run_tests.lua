@@ -25,58 +25,78 @@ local lfs = require 'lfs'
 local colors = require 'ansicolors'
 
 local TESTS_DIR = "./tests/"
+local DIFF_CMD = "diff -uN"
 local VERSION_CMD = "git --git-dir=.git describe --all --long"
 local handle = io.popen(VERSION_CMD)
 local VERSION = handle:read("*a")
 handle:close()
 
 local HR = "========================================================"
-
 -- Counters
 local TOTAL_TESTS = 0
 local PASS_TESTS = 0
 local FAIL_TESTS = 0
 
-for file in lfs.dir(TESTS_DIR) do
+function run_test(file)
   local color = '%{green}'
   local pass = 'PASS'
 
-  if lfs.attributes(file, "mode") ~= "directory" then    
-    -- We should skip out files.
-    local found = string.find(file, "_out.ncl", 1)    -- find 'next' newline
-    if found == nil then -- We use only the ones that does not ends with 
-                         -- '_out.ncl'
+  -- Run the ncls3d with the .ncl test
+  local NCLS3D_CMD = "lua ncls3d.lua " .. TESTS_DIR .. file .. " -o a.out -d -m"
+  -- print("RUNNING: " .. NCLS3D_CMD)
+  handle = io.popen (NCLS3D_CMD)
+  local ncsl3d_result = handle:read("*a")
+  handle:close()
 
-      -- Run the ncls3d with the .ncl test
-      handle = io.popen ("lua ncls3d.lua " .. TESTS_DIR .. file .. " -o a.out")
-      local ncsl3d_result = handle:read("*a")
-      handle:close()
+  local out_content = string.gsub (file, ".ncl", "_out.ncl")
 
-      local out_content = string.gsub (file, ".ncl", "_out.ncl")
-      handle = io.popen ("diff a.out " .. TESTS_DIR .. out_content)
-      local diff_result = handle:read("*a")
-      local error_returned = handle:close()
-      
-      if error_returned then
-        pass = 'PASS'
-        color = "%{green}"
-        PASS_TESTS = PASS_TESTS + 1
-      else
-        pass = 'FAIL'
-        color = "%{red}"
-        FAIL_TESTS = FAIL_TESTS + 1
+  local RUN_DIFF_CMD = DIFF_CMD .. " a.out " .. TESTS_DIR .. out_content
+
+  --print("RUNNING: " .. RUN_DIFF_CMD)
+  handle = io.popen(RUN_DIFF_CMD)
+  local diff_result = handle:read("*all")
+  local error_returned = handle:close()
+
+  if diff_result == "" then
+    pass = 'PASS'
+    color = "%{green}"
+    PASS_TESTS = PASS_TESTS + 1
+  else
+    pass = 'FAIL'
+    color = "%{red}"
+    FAIL_TESTS = FAIL_TESTS + 1
+  end
+
+  print (colors(color..pass..": ")..file)
+  TOTAL_TESTS = TOTAL_TESTS + 1
+end
+
+function run_all()
+   for file in lfs.dir(TESTS_DIR) do
+
+    if lfs.attributes(file, "mode") ~= "directory" then    
+      -- We should skip out files.
+      local found = string.find(file, "_out.ncl", 1)    -- find 'next' newline
+      if found == nil then -- We use only the ones that does not ends with 
+                           -- '_out.ncl'
+
+        run_test(file) 
       end
-
-      print (colors(color..pass..": ") .. file)
-      TOTAL_TESTS = TOTAL_TESTS + 1
     end
   end
 end
 
-print (colors('%{red}'.. HR))
-print (colors("%{red}Testsuite summary for ncls3d.lua " .. VERSION .. HR))
+function show_summary()
+  print (colors('%{red}'.. HR))
+  print (colors("%{red}Testsuite summary for ncls3d.lua " .. VERSION .. HR))
 
-print (colors("%{white}# TOTAL: " .. TOTAL_TESTS))
-print (colors("%{green}# PASS: " .. PASS_TESTS))
-print (colors("%{red}# FAIL: " .. FAIL_TESTS))
+  print (colors("%{white}# TOTAL: " .. TOTAL_TESTS))
+  print (colors("%{green}# PASS: " .. PASS_TESTS))
+  print (colors("%{red}# FAIL: " .. FAIL_TESTS))
+end
+
+run_all()
+-- run_test("media.ncl")
+show_summary()
+os.execute("rm a.out")
 
