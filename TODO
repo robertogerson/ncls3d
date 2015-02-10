@@ -2,6 +2,7 @@
 This is the TODO list for ncls3d.
 
 ## Bugs
+  * Take a look when the disparity put the media outside of the boundaries.
   * We should clone a <bind> only if the <media> pointed by this <bind> was
     cloned.
   * Add 'bounds' property to media objects!
