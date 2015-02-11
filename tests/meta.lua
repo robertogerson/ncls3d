@@ -42,5 +42,12 @@ test_suite = {
     out     = "link_set_out.ncl",
     params  = "-m -d"
   },
+  -- Transition
+  {
+    file    = "transition.ncl",
+    out     = "transition_out.ncl",
+    params  = "-m"
+  }
+  -- \todo Animations
 }
 
