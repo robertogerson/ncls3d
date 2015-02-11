@@ -1,37 +1,41 @@
 test_suite = {
   -- Region tests
   {
-    file = "region.ncl",
-    out = "region_out.ncl",
-    params = ""
+    file    = "region.ncl",
+    out     = "region_out.ncl",
+    params  = ""
+  },
+  {
+    file    = "media_region.ncl",
+    out     = "media_region_out.ncl",
+    params  = "-m"
   },
   -- Media tests
   {
-    file="media.ncl",
-    out="media_out.ncl",
-    params="-m -d"
+    file    = "media_prop.ncl",
+    out     = "media_prop_out.ncl",
+    params  = "-m"
   },
   {
-    file="media_without_left.ncl",
-    out="media_without_left_out.ncl",
-    params="-m -d"
+    file    = "media_prop_without_left.ncl",
+    out     = "media_prop_without_left_out.ncl",
+    params  = "-m -d"
   },
   {
-    file="media_without_width.ncl",
-    out="media_without_width_out.ncl",
-    params="-m -d"
+    file    = "media_prop_without_width.ncl",
+    out     = "media_prop_without_width_out.ncl",
+    params  = "-m -d"
   },
   {
-    file="mirror.ncl",
-    out="mirror_out.ncl",
-    params="-m"
+    file    = "mirror.ncl",
+    out     = "mirror_out.ncl",
+    params  = "-m"
   },
   -- Link tests
   {
-    file="mirror.ncl",
-    out="mirror_out.ncl",
-    params="-m"
+    file    = "links_set.ncl",
+    out     = "mirror_out.ncl",
+    params  = "-m"
   },
-
 }
 
