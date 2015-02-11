@@ -385,6 +385,16 @@ function update_ncl_bind(bind_el)
   return false
 end
 
+function import_connector_base (xml_el)
+  local import = {
+      type = "element",
+      name = "importBase",
+      attr = { {name = "alias", value = "ncls3dbase"},
+               {name = "documentURI", value = "../media/connBase.ncl"} } }
+
+  table.insert (xml_el.kids, import)
+end
+
 -- Main function to generate stereo application from the original NCL document
 -- @param doc The root document table.
 -- @param xml_el The current xml element being parsed.
@@ -432,6 +442,8 @@ function generate_stereo ( doc, xml_el )
           if USE_NCLUA_DEPTH_CONTROL then
             update_ncl_bind(xml_child)
           end
+        elseif xml_child.name == "connectorBase" then
+          import_connector_base(xml_child)
         end
       end
       
