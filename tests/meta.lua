@@ -33,9 +33,9 @@ test_suite = {
   },
   -- Link tests
   {
-    file    = "links_set.ncl",
-    out     = "mirror_out.ncl",
-    params  = "-m"
+    file    = "link_set.ncl",
+    out     = "link_set_out.ncl",
+    params  = "-m -d"
   },
 }
 
