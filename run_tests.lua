@@ -37,18 +37,20 @@ local TOTAL_TESTS = 0
 local PASS_TESTS = 0
 local FAIL_TESTS = 0
 
-function run_test(file)
+function run_test(file, out, p)
   local color = '%{green}'
   local pass = 'PASS'
+  local params = p or '-m -d'
 
   -- Run the ncls3d with the .ncl test
-  local NCLS3D_CMD = "lua ncls3d.lua " .. TESTS_DIR .. file .. " -o a.out -d -m"
+  local NCLS3D_CMD = "lua ncls3d.lua " .. TESTS_DIR .. file .. " -o a.out " ..
+                     params
   -- print("RUNNING: " .. NCLS3D_CMD)
   handle = io.popen (NCLS3D_CMD)
   local ncsl3d_result = handle:read("*a")
   handle:close()
 
-  local out_content = string.gsub (file, ".ncl", "_out.ncl")
+  local out_content = out or string.gsub (file, ".ncl", "_out.ncl")
 
   local RUN_DIFF_CMD = DIFF_CMD .. " a.out " .. TESTS_DIR .. out_content
 
@@ -72,30 +74,48 @@ function run_test(file)
 end
 
 function run_all()
-   for file in lfs.dir(TESTS_DIR) do
+  local all_files = {}
+
+  for file in lfs.dir(TESTS_DIR) do
+    table.insert(all_files, file)
+  end
+  table.sort(all_files)
+
+  for k,file in pairs(all_files) do
 
     if lfs.attributes(file, "mode") ~= "directory" then    
       -- We should skip out files.
       local found = string.find(file, "_out.ncl", 1)    -- find 'next' newline
       if found == nil then -- We use only the ones that does not ends with 
                            -- '_out.ncl'
-
         run_test(file) 
       end
     end
   end
 end
 
+function run_registered()
+  require (TESTS_DIR .. '/meta')
+  for k, v in pairs(test_suite) do
+    run_test(v.file, v.out, v.params)
+  end
+end
+
 function show_summary()
-  print (colors('%{red}'.. HR))
-  print (colors("%{red}Testsuite summary for ncls3d.lua " .. VERSION .. HR))
+  local color = '%{red}'
+  if TOTAL_TESTS == PASS_TESTS then
+    color = '%{green}'
+  end
+  print (colors(color.. HR))
+  print (colors(color.."Testsuite summary for ncls3d.lua " .. VERSION .. HR))
 
   print (colors("%{white}# TOTAL: " .. TOTAL_TESTS))
   print (colors("%{green}# PASS: " .. PASS_TESTS))
   print (colors("%{red}# FAIL: " .. FAIL_TESTS))
 end
 
-run_all()
+-- run_all()
+run_registered()
 -- run_test("media.ncl")
 show_summary()
 os.execute("rm a.out")
