@@ -19,6 +19,7 @@
         <simpleCondition role="onSelection"/>
         <simpleAction role="set" value="$var" max="unbounded"/>
       </causalConnector>
+      <importBase alias="ncls3dbase" documentURI="../media/connBase.ncl"/>
     </connectorBase>
   </head>
   <body id="myBodyID">
@@ -46,14 +47,14 @@
       <property name="final_bounds_right" value=""/>
       <property name="update_user_scale_disparity_by" value="0.0"/>
     </media>
-    <link id="pinterest_update_bounds_left" xconnector="onEndAttributionSet_var">
+    <link id="pinterest_update_bounds_left" xconnector="ncls3dbase#onEndAttributionSet_var">
       <bind role="onEndAttribution" component="pinterest_depth_control" interface="final_bounds_left"/>
       <bind role="get" component="pinterest_depth_control" interface="final_bounds_left"/>
       <bind role="set" component="pinterest" interface="bounds">
         <bindParam name="var" value="$get"/>
       </bind>
     </link>
-    <link id="pinterest_update_bounds_right" xconnector="onEndAttributionSet_var">
+    <link id="pinterest_update_bounds_right" xconnector="ncls3dbase#onEndAttributionSet_var">
       <bind role="onEndAttribution" component="pinterest_depth_control" interface="final_bounds_right"/>
       <bind role="get" component="pinterest_depth_control" interface="final_bounds_right"/>
       <bind role="set" component="pinterest_right" interface="bounds">
