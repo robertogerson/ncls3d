@@ -27,6 +27,11 @@ test_suite = {
     params  = "-m"
   },
   {
+    file    = "media_multi.ncl",
+    out     = "media_multi_out.ncl",
+    params  = "-m"
+  },
+  {
     file    = "mirror.ncl",
     out     = "mirror_out.ncl",
     params  = "-m"
