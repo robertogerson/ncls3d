@@ -474,7 +474,7 @@ parser:option "-p" "--max-pos-disparity"
                .. "0.0 means 0% of the screen and 1.0 means 100%.\n"
                .. "The default value is " .. MAX_POS_DISPARITY
                .. " (or ".. MAX_POS_DISPARITY * 100 .. "%).")
-parser:option "-n" "--neg-disparity"
+parser:option "-n" "--max-neg-disparity"
   :description ("Defines the *maximum negative disparity* that must be used.\n"
                .. "The maximum positive and negative disparity should be a \n"
                .. "double in the range [0.0, 1.0]. \n"
