@@ -2,22 +2,25 @@
 This is the TODO list for ncls3d.
 
 ## Bugs
+  * Add ncls3d causalConnector to repository.
   * We are assuming that there is a connectorBase.
   * Take a look when the disparity put the media outside of the boundaries.
   * We should clone a <bind> only if the <media> pointed by this <bind> was
     cloned.
-  * Add 'bounds' property to media objects!
+  * Add 'bounds' property to media objects. Maybe, we should work only with
+    bounds properties.
   * We only need to add depth_control_template if there is any change
-    in the spatial media properties (including depth property).
-  * Add onEndAttributionSet_var connector to the document.
+    in the spatial media properties (including depth property). Warning: Maybe
+    this is not the solution, because the changes could happen in run-time.
+
+## New features
+  * Support for native stereoscopic video.
+  * Handling only bounds, instead of individuals left/width/right.
+  * Support for top/down output.
   * Handle animations.
   * Dynamic adaptability (allow to choose stereo or non-stereo execution mode).
 
-## New features
-  * Handling only bounds, instead of individuals left/width/right.
-  * Support for top/down output.
-
 ## Tests
   * Animation
-  * Transition
   * Test using NCLua object.
+  * Dynamic changes in the depth and spatial properties.

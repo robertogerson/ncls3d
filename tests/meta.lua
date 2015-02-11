@@ -32,10 +32,11 @@ test_suite = {
     params  = "-m"
   },
   {
-    file    = "mirror.ncl",
-    out     = "mirror_out.ncl",
+    file    = "media_video.ncl",
+    out     = "media_video_out.ncl",
     params  = "-m"
   },
+  -- \todo media nclua!!!
   -- Link tests
   {
     file    = "link_set.ncl",

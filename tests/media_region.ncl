@@ -10,6 +10,6 @@
   </head>
   <body>
     <port id="p1" component="m1"/>
-    <media id="m1" src="image.png" descriptor="ds1"/>
+    <media id="m1" src="../media/triangle.png" descriptor="ds1"/>
   </body>
 </ncl>

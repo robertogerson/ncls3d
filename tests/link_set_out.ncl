@@ -14,9 +14,9 @@
       <descriptor focusIndex="0" id="dPinterest_right" moveDown="1" moveUp="3" region="rgPinterest_right"/>
     </descriptorBase>
     <connectorBase id="connBaseId">
-      <causalConnector id="onSelectionSet_var">
+      <causalConnector id="onBeginSet_var">
         <connectorParam name="var"/>
-        <simpleCondition role="onSelection"/>
+        <simpleCondition role="onBegin"/>
         <simpleAction role="set" value="$var" max="unbounded"/>
       </causalConnector>
       <importBase alias="ncls3dbase" documentURI="../media/connBase.ncl"/>
@@ -24,18 +24,25 @@
   </head>
   <body id="myBodyID">
     <port id="p1" component="pinterest"/>
-    <media id="pinterest" src="media/pinterest-big.png" descriptor="dPinterest">
+    <media id="pinterest" src="../media/triangle.png" descriptor="dPinterest">
       <property name="bounds"/>
+      <property name="explicitDur" value="8s"/>
+      <area id="timer" begin="3s"/>
     </media>
-    <link id="link1" xconnector="onSelectionSet_var">
-      <bind component="pinterest" role="onSelection"/>
-      <bind component="pinterest_depth_control" interface="orig_bounds" role="set">
+    <link id="link1" xconnector="onBeginSet_var">
+      <bind component="pinterest" interface="timer" role="onBegin"/>
+      <bind component="pinterest" interface="bounds" role="set">
+        <bindParam name="var" value="15%,5%,15%,30%"/>
+      </bind>
+      <bind component="pinterest_right" interface="bounds" role="set">
         <bindParam name="var" value="15%,5%,15%,30%"/>
       </bind>
     </link>
     <port id="p1_right" component="pinterest_right"/>
     <media id="pinterest_right" src="ncl-mirror://pinterest" descriptor="dPinterest_right">
       <property name="bounds"/>
+      <property name="explicitDur" value="8s"/>
+      <area id="timer_right" begin="3s"/>
     </media>
     <port id="pinterest_depth_control_port" component="pinterest_depth_control"/>
     <media id="pinterest_depth_control" src="media/depth_control.lua">

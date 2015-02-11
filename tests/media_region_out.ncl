@@ -16,7 +16,7 @@
   </head>
   <body>
     <port id="p1" component="m1"/>
-    <media id="m1" src="image.png" descriptor="ds1"/>
+    <media id="m1" src="../media/triangle.png" descriptor="ds1"/>
     <port id="p1_right" component="m1_right"/>
     <media id="m1_right" src="ncl-mirror://m1" descriptor="ds1_right"/>
   </body>

@@ -8,20 +8,22 @@
       <descriptor focusIndex="0" id="dPinterest" moveDown="1" moveUp="3" region="rgPinterest"/>
     </descriptorBase>
     <connectorBase id="connBaseId">
-      <causalConnector id="onSelectionSet_var">
+      <causalConnector id="onBeginSet_var">
         <connectorParam name="var"/>
-        <simpleCondition role="onSelection"/>
+        <simpleCondition role="onBegin"/>
         <simpleAction role="set" value="$var" max="unbounded" />
       </causalConnector>
     </connectorBase>
   </head>
   <body id="myBodyID">
     <port id="p1" component="pinterest" />
-    <media id="pinterest" src="media/pinterest-big.png" descriptor="dPinterest">
+    <media id="pinterest" src="../media/triangle.png" descriptor="dPinterest">
       <property name="bounds"/>
+      <property name="explicitDur" value="8s"/>
+      <area id="timer" begin="3s"/>
     </media>  
-    <link id="link1" xconnector="onSelectionSet_var">
-      <bind component="pinterest" role="onSelection"/>
+    <link id="link1" xconnector="onBeginSet_var">
+      <bind component="pinterest" interface="timer" role="onBegin"/>
       <bind component="pinterest" interface="bounds" role="set">
         <bindParam name="var" value="15%,5%,15%,30%"/>
       </bind>
