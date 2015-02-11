@@ -19,12 +19,12 @@ test_suite = {
   {
     file    = "media_prop_without_left.ncl",
     out     = "media_prop_without_left_out.ncl",
-    params  = "-m -d"
+    params  = "-m"
   },
   {
     file    = "media_prop_without_width.ncl",
     out     = "media_prop_without_width_out.ncl",
-    params  = "-m -d"
+    params  = "-m"
   },
   {
     file    = "mirror.ncl",

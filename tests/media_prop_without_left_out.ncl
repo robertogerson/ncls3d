@@ -17,29 +17,5 @@
       <property name="height" value="50%"/>
       <property name="left" value="49%"/>
     </media>
-    <port id="m1_depth_control_port" component="m1_depth_control"/>
-    <media id="m1_depth_control" src="media/depth_control.lua">
-      <property name="orig_depth" value=""/>
-      <property name="orig_left" value=""/>
-      <property name="orig_width" value=""/>
-      <property name="orig_bounds" value=""/>
-      <property name="final_bounds_left" value=""/>
-      <property name="final_bounds_right" value=""/>
-      <property name="update_user_scale_disparity_by" value="0.0"/>
-    </media>
-    <link id="m1_update_bounds_left" xconnector="onEndAttributionSet_var">
-      <bind role="onEndAttribution" component="m1_depth_control" interface="final_bounds_left"/>
-      <bind role="get" component="m1_depth_control" interface="final_bounds_left"/>
-      <bind role="set" component="m1" interface="bounds">
-        <bindParam name="var" value="$get"/>
-      </bind>
-    </link>
-    <link id="m1_update_bounds_right" xconnector="onEndAttributionSet_var">
-      <bind role="onEndAttribution" component="m1_depth_control" interface="final_bounds_right"/>
-      <bind role="get" component="m1_depth_control" interface="final_bounds_right"/>
-      <bind role="set" component="m1_right" interface="bounds">
-        <bindParam name="var" value="$get"/>
-      </bind>
-    </link>
   </body>
 </ncl>
