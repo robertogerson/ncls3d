@@ -17,3 +17,7 @@ This is the TODO list for ncls3d.
   * Handling only bounds, instead of individuals left/width/right.
   * Support for top/down output.
 
+## Tests
+  * Animation
+  * Transition
+  * Test using NCLua object.
