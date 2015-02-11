@@ -198,7 +198,10 @@ end
 function clone_ncl_media ( media_el )
   assert(media_el.name == "media")
 
-  add_property_if_it_doesnt_exist(media_el)
+  -- \fixme This is not a really interesting thing to do!
+  if not slaxml:get_attr(media_el, "descriptor") then
+    add_property_if_it_doesnt_exist(media_el)
+  end
   
   local media_right = table.deepcopy(media_el) -- clone the media element
   local mirror_id = slaxml:get_attr(media_right, "id")
