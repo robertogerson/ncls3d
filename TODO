@@ -13,5 +13,6 @@ This is the TODO list for ncls3d.
   * Dynamic adaptability (allow to choose stereo or non-stereo execution mode).
 
 ## New features
+  * Handling only bounds, instead of individuals left/width/right.
   * Support for top/down output.
 
