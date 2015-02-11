@@ -459,16 +459,30 @@ end
 
 local argparse = require "argparse"
 local parser = argparse()
-   :description ("ncls3d is a lua script to convert an NCL document to its "
+  :description ("ncls3d is a lua script to convert an NCL document to its "
                 .. "stereoscopic version.")
 parser:argument "input"
-   :description "Input file."
+  :description "Input file."
 parser:flag "-d" "--usedepth"
-   :description "Use NCLua depth media control."
+  :description "Use NCLua depth media control."
 parser:flag "-m" "--usemirror"
-   :description "Use ncl-mirror:// schema to cloned media objects."
+  :description "Use ncl-mirror:// schema to cloned media objects."
+parser:option "-p" "--max-pos-disparity"
+  :description ("Defines the *maximum positive disparity* that must be used.\n"
+               .. "The maximum positive and negative disparity should be a \n"
+               .. "double in the range [0.0, 1.0]. \n"
+               .. "0.0 means 0% of the screen and 1.0 means 100%.\n"
+               .. "The default value is " .. MAX_POS_DISPARITY
+               .. " (or ".. MAX_POS_DISPARITY * 100 .. "%).")
+parser:option "-n" "--neg-disparity"
+  :description ("Defines the *maximum negative disparity* that must be used.\n"
+               .. "The maximum positive and negative disparity should be a \n"
+               .. "double in the range [0.0, 1.0]. \n"
+               .. "0.0 means 0% of the screen and 1.0 means 100%.\n"
+               .. "The default value is " .. MAX_NEG_DISPARITY
+               .. " (or ".. MAX_NEG_DISPARITY * 100 .. "%).")
 parser:option "-o" "--output"
-   :description "Output file."
+  :description "Output file."
 
 -- Main
 function main()
@@ -490,6 +504,14 @@ function main()
   USE_NCLUA_DEPTH_CONTROL = args["usedepth"]
   USE_MIRROR = args["usemirror"]
 
+  if args["max_pos_disparity"] then
+    MAX_POS_DISPARITY = tonumber (args["max_pos_disparity"])
+  end
+
+  if args["max_neg_disparity"] then
+    MAX_NEG_DISPARITY = tonumber (args["max_neg_disparity"])
+  end
+ 
   generate_stereo (doc, doc)
   -- print (inspect(doc))
   if args["output"] then
