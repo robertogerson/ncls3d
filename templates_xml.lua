@@ -44,7 +44,8 @@ local TEMPLATES =
   depth_control_content = get_file_content("tpl/depth_control_media.xml"),
   link_update_left_content = get_file_content("tpl/link_update_left.xml"),
   link_update_right_content = get_file_content("tpl/link_update_right.xml"),
-  link_stop_depth_control = get_file_content("tpl/link_stop_depth_control.xml")
+  link_stop_depth_control = get_file_content("tpl/link_stop_depth_control.xml"),
+  link_set_depth_defaults = get_file_content("tpl/link_set_depth_defaults.xml")
 }  
 
 function TEMPLATES:get_depth_control_media_start (str_id)
@@ -101,6 +102,19 @@ function TEMPLATES:get_link_stop_depth_control (str_id)
 
   return table.deepcopy(root)
 end
+
+function TEMPLATES:get_link_set_depth_defaults (str_id, orig_depth, orig_bounds)
+   assert(str_id)
+  local template_input = "local id_depth_control = \"".. str_id .. "_depth_control\"\n"
+  template_input = template_input .. "local orig_depth = \"".. orig_depth .. "\"\n"
+  template_input = template_input .. "local orig_bounds = \"".. orig_bounds .. "\"\n"
+
+  local solved = luatpl:solve(TEMPLATES.link_set_depth_defaults, template_input)
+  local root = get_root_element (solved)
+
+  return table.deepcopy(root)
+end
+
 
 return TEMPLATES
 

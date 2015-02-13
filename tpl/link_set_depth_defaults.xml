@@ -1,0 +1,9 @@
+<link id="[!=id_depth_control!]_set_defaults" xconnector="ncls3dbase#onBeginSet_var">
+  <bind role="onBegin" component="[!=id_depth_control!]"/>
+  <bind role="set" component="[!=id_depth_control!]" interface="orig_depth">
+    <bindParam name="var" value="[!=orig_depth!]"/>
+  </bind>
+  <bind role="set" component="[!=id_depth_control!]" interface="orig_bounds">
+    <bindParam name="var" value="[!=orig_bounds!]"/>
+  </bind>
+</link>

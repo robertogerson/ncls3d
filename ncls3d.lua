@@ -170,7 +170,9 @@ function add_property_if_it_doesnt_exist(media_el)
       if child.type == "element" then
         local prop_name = slaxml:get_attr(child, "name")
 
-        if prop_name == k then
+        if prop_name == k or
+           prop_name == "bounds" -- If I only need bounds
+        then
           found  = true
           break
         end
@@ -224,19 +226,38 @@ end
 function create_nclua_depth_control(media_el)
   assert (media_el.name == "media")
   local str_id = slaxml:get_attr(media_el, "id")
+  local orig_bounds = "0%,0%,100%,100%"
+  local orig_depth = "0"
+  
+  -- get default media properties
+  for k, v in pairs(media_el.kids) do
+    if v.type == "element" then
+      local name =  slaxml:get_attr(v, "name")
 
-  -- TODO: We can do better than that. Maybe, search the functions in templates table 
+      if name == "depth" then
+        orig_depth = slaxml:get_attr(v, "value")  or orig_depth
+      elseif name == "bounds" then
+        orig_bounds = slaxml:get_attr(v, "value") or orig_bounds
+      end
+    end
+  end
+
+  -- TODO: We can do better than that. Maybe, search the functions in templates
+  -- table 
   local depth_control_media_start = templates:get_depth_control_media_start(str_id)
   local depth_control_media = templates:get_depth_control_media(str_id)
   local depth_control_link_left = templates:get_link_update_left(str_id)
   local depth_control_link_right = templates:get_link_update_right(str_id)
   local depth_control_link_stop = templates:get_link_stop_depth_control(str_id)
+  local link_set_depth_defaults = 
+          templates:get_link_set_depth_defaults(str_id, orig_depth, orig_bounds)
   
   return { depth_control_media_start, 
            depth_control_media,
            depth_control_link_left,
            depth_control_link_right,
-           depth_control_link_stop }
+           depth_control_link_stop,
+           link_set_depth_defaults }
 end
 
 function update_regions_with_disparity(region_el)

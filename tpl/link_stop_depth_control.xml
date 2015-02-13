@@ -1,0 +1,4 @@
+<link id="[!=id_depth_control!]_stop" xconnector="ncls3dbase#onEndStop">
+  <bind role="onEnd" component="[!=id_right_media!]"/>
+  <bind role="stop" component="[!=id_depth_control!]"/>
+</link>

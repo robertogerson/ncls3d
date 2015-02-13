@@ -64,7 +64,7 @@ Revision: 17/09/2012
         <causalConnector id="onBeginSet_var">
           <connectorParam name="var"/>
           <simpleCondition role="onBegin"/>
-          <simpleAction role="set" value="$var"/>
+          <simpleAction role="set" value="$var" max="unbounded"/>
         </causalConnector>
         
         <causalConnector id="onBeginSet_var_delay">
