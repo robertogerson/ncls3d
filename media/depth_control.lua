@@ -146,7 +146,6 @@ function handler (evt)
     end
   
     if evt.name == 'orig_bounds' then
-      print (inspect(evt))
       orig_bounds = split (evt.value, ",")
       print (orig_bounds[1], orig_bounds[2], orig_bounds[3], orig_bounds[4])  
       update_final_bounds()

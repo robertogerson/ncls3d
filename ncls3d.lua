@@ -230,11 +230,13 @@ function create_nclua_depth_control(media_el)
   local depth_control_media = templates:get_depth_control_media(str_id)
   local depth_control_link_left = templates:get_link_update_left(str_id)
   local depth_control_link_right = templates:get_link_update_right(str_id)
+  local depth_control_link_stop = templates:get_link_stop_depth_control(str_id)
   
   return { depth_control_media_start, 
            depth_control_media,
            depth_control_link_left,
-           depth_control_link_right }
+           depth_control_link_right,
+           depth_control_link_stop }
 end
 
 function update_regions_with_disparity(region_el)

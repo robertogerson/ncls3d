@@ -69,5 +69,9 @@
         <bindParam name="var" value="$get"/>
       </bind>
     </link>
+    <link id="pinterest_depth_control_stop" xconnector="ncls3dbase#onEndStop">
+      <bind role="onEnd" component="pinterest_right"/>
+      <bind role="stop" component="pinterest_depth_control"/>
+    </link>
   </body>
 </ncl>
