@@ -39,8 +39,8 @@ test_suite = {
   -- \todo media nclua!!!
   -- Link tests
   {
-    file    = "link_set.ncl",
-    out     = "link_set_out.ncl",
+    file    = "link_set_bounds.ncl",
+    out     = "link_set_bounds_out.ncl",
     params  = "-m -d"
   },
   -- Transition
