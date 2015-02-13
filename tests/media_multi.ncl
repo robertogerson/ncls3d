@@ -33,8 +33,7 @@
       <property name="height" value="30%"/>
     </media>
    
-    <!-- This should be a video --> 
-    <media id="m4" src="../media/triangle.png">
+    <media id="m4" src="../media/countdown.mp4">
       <property name="depth" value="1.0"/>
       
       <property name="left" value="45%"/>

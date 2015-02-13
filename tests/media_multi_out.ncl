@@ -26,7 +26,7 @@
       <property name="width" value="15%"/>
       <property name="height" value="30%"/>
     </media>
-    <media id="m4" src="../media/triangle.png">
+    <media id="m4" src="../media/countdown.mp4">
       <property name="depth" value="1.0"/>
       <property name="left" value="22.5%"/>
       <property name="top" value="45%"/>
