@@ -43,6 +43,11 @@ test_suite = {
     out     = "link_set_bounds_out.ncl",
     params  = "-m -d"
   },
+  {
+    file    = "link_set_depth.ncl",
+    out     = "link_set_depth_out.ncl",
+    params  = "-m -d"
+  },
   -- Transition
   {
     file    = "transition.ncl",
