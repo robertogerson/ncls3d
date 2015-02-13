@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ncl id="myNCLDocID" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
   <head>
-    <regionBase id="regionBase0">
-      <region id="rgPinterest" left="13%" top="10.00%" width="10.00%" height="20.00%" zIndex="6"/>
-    </regionBase>
-    <descriptorBase id="descriptorBase1">
-      <descriptor focusIndex="0" id="dPinterest" moveDown="1" moveUp="3" region="rgPinterest"/>
-    </descriptorBase>
     <connectorBase id="connBaseId">
       <causalConnector id="onBeginSet_var">
         <connectorParam name="var"/>
@@ -17,8 +11,8 @@
   </head>
   <body id="myBodyID">
     <port id="p1" component="pinterest" />
-    <media id="pinterest" src="../media/triangle.png" descriptor="dPinterest">
-      <property name="bounds"/>
+    <media id="pinterest" src="../media/triangle.png">
+      <property name="bounds" value="13%,10%,10%,20%"/>
       <property name="depth" value="1"/>
       <property name="explicitDur" value="8s"/>
       <area id="timer" begin="3s"/>

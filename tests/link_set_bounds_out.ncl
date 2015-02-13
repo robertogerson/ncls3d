@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ncl id="myNCLDocID" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
   <head>
-    <regionBase id="regionBase0">
-      <region id="regions_left" left="0%" top="0%" width="50%" height="100%">
-        <region id="rgPinterest" left="13%" top="10.00%" width="10.00%" height="20.00%" zIndex="6"/>
-      </region>
-      <region id="regions_right" left="50%" top="0%" width="50%" height="100%">
-        <region id="rgPinterest_right" left="13%" top="10.00%" width="10.00%" height="20.00%" zIndex="6"/>
-      </region>
-    </regionBase>
-    <descriptorBase id="descriptorBase1">
-      <descriptor focusIndex="0" id="dPinterest" moveDown="1" moveUp="3" region="rgPinterest"/>
-      <descriptor focusIndex="0" id="dPinterest_right" moveDown="1" moveUp="3" region="rgPinterest_right"/>
-    </descriptorBase>
     <connectorBase id="connBaseId">
       <causalConnector id="onBeginSet_var">
         <connectorParam name="var"/>
@@ -24,8 +12,8 @@
   </head>
   <body id="myBodyID">
     <port id="p1" component="pinterest"/>
-    <media id="pinterest" src="../media/triangle.png" descriptor="dPinterest">
-      <property name="bounds"/>
+    <media id="pinterest" src="../media/triangle.png">
+      <property name="bounds" value="13%,10%,10%,20%"/>
       <property name="depth" value="1"/>
       <property name="explicitDur" value="8s"/>
       <area id="timer" begin="3s"/>
@@ -37,8 +25,8 @@
       </bind>
     </link>
     <port id="p1_right" component="pinterest_right"/>
-    <media id="pinterest_right" src="ncl-mirror://pinterest" descriptor="dPinterest_right">
-      <property name="bounds"/>
+    <media id="pinterest_right" src="ncl-mirror://pinterest">
+      <property name="bounds" value="13%,10%,10%,20%"/>
       <property name="depth" value="1"/>
       <property name="explicitDur" value="8s"/>
       <area id="timer_right" begin="3s"/>
@@ -72,6 +60,15 @@
     <link id="pinterest_depth_control_stop" xconnector="ncls3dbase#onEndStop">
       <bind role="onEnd" component="pinterest_right"/>
       <bind role="stop" component="pinterest_depth_control"/>
+    </link>
+    <link id="pinterest_depth_control_set_defaults" xconnector="ncls3dbase#onBeginSet_var">
+      <bind role="onBegin" component="pinterest_depth_control"/>
+      <bind role="set" component="pinterest_depth_control" interface="orig_depth">
+        <bindParam name="var" value="1"/>
+      </bind>
+      <bind role="set" component="pinterest_depth_control" interface="orig_bounds">
+        <bindParam name="var" value="13%,10%,10%,20%"/>
+      </bind>
     </link>
   </body>
 </ncl>
