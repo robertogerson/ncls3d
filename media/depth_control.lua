@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with ncls3d. If not, see <http://www.gnu.org/licenses/>.
 --]]
 
+local inspect = require 'inspect'
+
 -- Depth control is an NCLua script that communicates with NCL documents to
 -- calculate final bounds value for NCL stereoscopic applications.
 user_scale_disparity = 1.0 -- an user selected value that can
@@ -89,20 +91,24 @@ function update_final_bounds()
 		action = 'start',
 		value = bounds_str
 	}
-  
+
+  print ("bounds_str left: ", bounds_str)
+
 	event.post (evt)
 	evt.action = 'stop'
 	event.post (evt)
 	
 	-- Update the bounds of the right-side element
-	bounds_str = tostring((50 + left + final_disparity * 100)) .. "%," ..
-	    		   orig_bounds[2] .. "," ..
-				   tostring( width / 2.0) .. "%," ..
-				   orig_bounds[4]	
+	bounds_str = tostring((50 + left + final_disparity * 100)) .. "%," 
+               .. orig_bounds[2] .. ","
+               .. tostring( width / 2.0) .. "%,"
+               .. orig_bounds[4]	
 	
 	evt.action = 'start'
 	evt.name = 'final_bounds_right'
 	evt.value = bounds_str
+  
+  print ("bounds_str right: ", bounds_str)
 	
 	event.post (evt)
 	evt.action = 'stop'
@@ -114,33 +120,37 @@ end
 function handler (evt)
   if evt.class ~= 'ncl' then return end
   if evt.type ~= 'attribution' then return end
+
+  if evt.action == 'stop' then
   
-  if evt.name == 'update_user_scale_disparity_by' then
-    user_scale_disparity = user_scale_disparity + evt.value
+    if evt.name == 'update_user_scale_disparity_by' then
+      user_scale_disparity = user_scale_disparity + evt.value
     
-    if user_scale_disparity < 0 then
-      user_scale_disparity = 0
+      if user_scale_disparity < 0 then
+        user_scale_disparity = 0
+      end
+      if user_scale_disparity > 1 then
+        user_scale_disparity = 1
+      end
+      update_final_bounds()
     end
-    if user_scale_disparity > 1 then
-      user_scale_disparity = 1
+  
+    if evt.name == 'orig_left' then
+      orig_left = tonumber(evt.value)
+      update_final_bounds()
     end
-    update_final_bounds()
-  end
   
-  if evt.name == 'orig_left' then
-    orig_left = tonumber(evt.value)
-    update_final_bounds()
-  end
+    if evt.name == 'orig_depth' then
+      orig_depth = tonumber(evt.value)
+      update_final_bounds()
+    end
   
-  if evt.name == 'orig_depth' then
-    orig_depth = tonumber(evt.value)
-    update_final_bounds()
-  end
-  
-  if evt.name == 'orig_bounds' then
-    orig_bounds = split (evt.value, ",")
-    print (orig_bounds[1], orig_bounds[2], orig_bounds[3], orig_bounds[4])  
-    update_final_bounds()
+    if evt.name == 'orig_bounds' then
+      print (inspect(evt))
+      orig_bounds = split (evt.value, ",")
+      print (orig_bounds[1], orig_bounds[2], orig_bounds[3], orig_bounds[4])  
+      update_final_bounds()
+    end
   end
   
   evt.action = stop

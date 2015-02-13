@@ -1,5 +1,5 @@
-<link id="[!=id_left_media!]_update_bounds_left" xconnector="ncls3dbase#onEndAttributionSet_var">
-  <bind role="onEndAttribution" component="[!=id_depth_control!]" interface="final_bounds_left"/>
+<link id="[!=id_left_media!]_update_bounds_left" xconnector="ncls3dbase#onBeginAttributionSet_var">
+  <bind role="onBeginAttribution" component="[!=id_depth_control!]" interface="final_bounds_left"/>
   <bind role="get" component="[!=id_depth_control!]" interface="final_bounds_left"/>
   <bind role="set" component="[!=id_left_media!]" interface="bounds">
     <bindParam name="var" value="$get"/>

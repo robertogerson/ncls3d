@@ -1,6 +1,6 @@
-<media id="[!=media_id!]_depth_control" src="media/depth_control.lua">
-  <!-- property name="width" value="100%"/>
-  <property name="height" value="100%"/ -->
+<media id="[!=media_id!]_depth_control" src="../media/depth_control.lua">
+  <property name="width" value="100%"/>
+  <property name="height" value="100%"/>
   
   <!-- property name="user_scale_disparity" value="1.0"/ -->
   <property name="orig_depth" value=""/>

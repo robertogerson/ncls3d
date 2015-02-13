@@ -19,6 +19,7 @@
     <port id="p1" component="pinterest" />
     <media id="pinterest" src="../media/triangle.png" descriptor="dPinterest">
       <property name="bounds"/>
+      <property name="depth" value="1"/>
       <property name="explicitDur" value="8s"/>
       <area id="timer" begin="3s"/>
     </media>  
