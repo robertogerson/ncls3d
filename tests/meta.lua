@@ -41,6 +41,11 @@ test_suite = {
     out     = "media_nclua_out.ncl",
     params  = "-m"
   },
+  {
+    file    = "media_html.ncl",
+    out     = "media_html_out.ncl",
+    params  = "-m"
+  },
 
   -- Link tests
   {
