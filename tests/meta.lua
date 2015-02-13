@@ -36,7 +36,12 @@ test_suite = {
     out     = "media_video_out.ncl",
     params  = "-m"
   },
-  -- \todo media nclua!!!
+  {
+    file    = "media_nclua.ncl",
+    out     = "media_nclua_out.ncl",
+    params  = "-m"
+  },
+
   -- Link tests
   {
     file    = "link_set_bounds.ncl",
