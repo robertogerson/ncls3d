@@ -17,6 +17,8 @@ This is the TODO list for ncls3d.
   * Support for top/down output.
   * Handle animations.
   * Dynamic adaptability (allow to choose stereo or non-stereo execution mode).
+  * Wrapper on the NCLua function to support internal drawing with depth. We
+    should re-implements all the canvas functions.
 
 ## Tests
   * Animation
