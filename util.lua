@@ -57,8 +57,9 @@ end
 -- (e.g. return 0.1 for "100%")
 -- @param percent 
 function double_from_percent (percent)
-  assert (type (percent) == "string")
-  assert (percent:sub(#percent, #percent) == "%")
+  assert (type (percent) == "string", percent .. "is not a string!")
+  assert (percent:sub(#percent, #percent) == "%", "Error getting percent " ..
+          percent)
   local v = percent:sub(1, #percent - 1)
   return v / 100.0;
 end
