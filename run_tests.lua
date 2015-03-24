@@ -43,7 +43,7 @@ function run_test(file, out, p)
   local params = p or '-m -d'
 
   -- Run the ncls3d with the .ncl test
-  local NCLS3D_CMD = "lua ncls3d.lua " .. TESTS_DIR .. file .. " -o a.out " ..
+  local NCLS3D_CMD = "lua nclsc.lua " .. TESTS_DIR .. file .. " -o a.out " ..
                      params
   -- print("RUNNING: " .. NCLS3D_CMD)
   handle = io.popen (NCLS3D_CMD)
