@@ -1,3 +1,4 @@
+#!/usr/bin/env lua
 --[[ Copyright (C) 2015 Roberto Azevedo
 
 This file is part of ncls3d.

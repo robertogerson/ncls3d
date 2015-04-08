@@ -1,21 +1,19 @@
 #nclsc (NCL Stereo Converter)
 *nclsc* is a lua script to convert an NCL application to its stereoscopic
 counterpart. The final application is ready to be shown on stereoscopic 3D
-displays. It allows both off-line conversion, and on-line (client-side) conversion 
---- through an NCLua media object.
+displays. It allows both off-line conversion, and on-line (client-side)
+conversion---through an NCLua media object.
 
 The following image shows an overview of the process that nclsc implements:
 
 ![ncls3d Overview](http://www.telemidia.puc-rio.br/~robertogerson/ncls3d_overview.png)
 
 ## Dependencies
-You should get the nclsc dependencies before start using it. The easiest way
-to do it is running:
+The easiest way to get the nclsc dependencies is running:
 
 ```bash
-lua get_deps.lua
+./get_deps.lua
 ```
-
 The dependencies will be downloaded and will be available at `deps` directory.
 
 ## Usage
@@ -25,7 +23,7 @@ server-side. In order to do so, you should run nclsc.lua from the command-line
 with something like:
 
 ```bash
-lua nclsc.lua [-o <output>] <input>
+./nclsc.lua [-o <output>] <input>
 ```
 
 This will take <input> as an NCL input file and generates a new NCL application
@@ -33,7 +31,7 @@ at the <output> file. A complete list of nclsc.lua parameters is accessible
 through:
 
 ```bash
-lua nclsc.lua -h
+./nclsc.lua -h
 ```
 
 ### NCLua
