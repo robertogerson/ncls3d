@@ -21,12 +21,13 @@ along with ncls3d. If not, see <http://www.gnu.org/licenses/>.
 local _depsdir = "./deps"
 
 local _deps = {
-  ["inspect"]  = "https://github.com/kikito/inspect.lua.git",
-  ["slaxml"]   = "https://github.com/Phrogz/SLAXML.git",
-  ["luatpl"]   = "https://github.com/robertogerson/luatpl.git",
-  ["argparse"] = "https://github.com/mpeterv/argparse.git",
-  ["30log"]    = "https://github.com/Yonaba/30log.git",
-  ["ansicolors"] = "https://github.com/kikito/ansicolors.lua.git"
+  ["inspect"]     = "https://github.com/kikito/inspect.lua.git",
+  ["slaxml"]      = "https://github.com/Phrogz/SLAXML.git",
+  ["slaxdom_ext"] = "https://github.com/robertogerson/slaxdom_ext.git",
+  ["luatpl"]      = "https://github.com/robertogerson/luatpl.git",
+  ["argparse"]    = "https://github.com/mpeterv/argparse.git",
+  ["30log"]       = "https://github.com/Yonaba/30log.git",
+  ["ansicolors"]  = "https://github.com/kikito/ansicolors.lua.git"
 }
 
 for k,v in pairs(_deps) do
