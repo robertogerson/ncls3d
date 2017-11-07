@@ -19,7 +19,7 @@ along with ncls3d. If not, see <http://www.gnu.org/licenses/>.
 
 -- Add deps path to the package.path.
 -- Thus, the dependencies will be found
-package.path = package.path .. ";./deps/?.lua;./deps/?/?.lua;./deps/?/src/?.lua"
+package.path = package.path .. ";./deps/?.lua;./deps/?/?.lua;./deps/?/src/?.lua;./deps/slaxml/?.lua"
 
 local inspect   = require "inspect"
 local util      = require "util"
